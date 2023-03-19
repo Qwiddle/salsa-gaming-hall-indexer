@@ -1,0 +1,51 @@
+spec_version: 1.2
+package: dipdup_indexer
+
+database:
+  kind: sqlite
+  path: salsa-gaming-hall-indexer.sqlite3
+
+contracts:
+  gaming_hall:
+    address: KT1PYdfipZK4it4Lq7wqhcKuueuuRTUEpcwY
+    typename: gaming_hall
+
+datasources:
+  tzkt_mainnet:
+    kind: tzkt
+    url: https://api.tzkt.io
+
+indexes:
+  gaming_hall_mainnet:
+    template: gaming_hall_users
+    values:
+      contract: gaming_hall
+      datasource: tzkt_mainnet
+
+templates:
+  gaming_hall_users:
+    kind: operation
+    datasource: <datasource>
+    contracts:
+      - <contract>
+    handlers:
+      - callback: on_invest
+        pattern:
+          - destination: <contract>
+            entrypoint: invest
+      - callback: on_divest
+        pattern:
+          - destination: <contract>
+            entrypoint: divest_Shares
+      - callback: on_bet
+        pattern:
+          - destination: <contract>
+            entrypoint: make_Bet
+      - callback: on_bet_resolve
+        pattern:
+          - destination: <contract>
+            entrypoint: resolve_Bet
+      - callback: on_bet_cancel
+        pattern:
+          - destination: <contract>
+            entrypoint: cancel_Bet
