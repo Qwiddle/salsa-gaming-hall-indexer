@@ -3,15 +3,20 @@ from dipdup.models import Model
 
 
 class Bet(Model):
-    user_address = fields.CharField(36, pk=True)
+    user_address = fields.CharField(36, index=True)
+    operation = fields.CharField(51, index=True)
     fa2_address = fields.CharField(36, index=True)
-    fa2_id = fields.CharField(4)
-    game_id = fields.IntField()
-    amount = fields.IntField()
+    fa2_id = fields.IntField(null=True)
+    game_id = fields.IntField(index=True)
+    amount = fields.DecimalField(38, 0)
+    payout = fields.DecimalField(38, 0, null=True)
+    winner = fields.BooleanField(null=True)
 
 
 class Investment(Model):
-    user_address = fields.CharField(36, pk=True)
+    user_address = fields.CharField(36, index=True)
+    operation = fields.CharField(51, index=True)
     fa2_address = fields.CharField(36, index=True)
-    fa2_id = fields.IntField()
-    amount = fields.IntField()
+    fa2_id = fields.IntField(null=True)
+    amount = fields.DecimalField(38, 0)
+    type = fields.CharField(12, index=True)
