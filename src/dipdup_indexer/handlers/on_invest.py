@@ -12,18 +12,19 @@ async def on_invest(
 ) -> None:
     try:
         user_address = invest.data.sender_address
+        operation = invest.data.hash
         fa2_address = invest.parameter.bankroll_currency.fa2_address
         fa2_id = invest.parameter.bankroll_currency.token_id
         amount = int(invest.parameter.amt)
 
         await models.Investment.create(
             user_address=user_address,
+            operation=operation,
             fa2_address=fa2_address,
             fa2_id=fa2_id,
             amount=amount,
             type="stake"
         )
-
     except Exception as e:
         print("Error in on_invest:")
         print(e)

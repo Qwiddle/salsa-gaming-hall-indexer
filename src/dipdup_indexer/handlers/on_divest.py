@@ -12,18 +12,19 @@ async def on_divest(
 ) -> None:
     try:
         user_address = divest_shares.data.sender_address
+        operation = divest_shares.data.hash
         fa2_address = divest_shares.parameter.bankroll_currency.fa2_address
         fa2_id = divest_shares.parameter.bankroll_currency.token_id
         amount = int(divest_shares.parameter.amt)
 
         await models.Investment.create(
             user_address=user_address,
+            operation=operation,
             fa2_address=fa2_address,
             fa2_id=fa2_id,
             amount=amount,
             type="unstake"
         )
-
     except Exception as e:
         print("Error in on_divest_shares:")
         print(e)
