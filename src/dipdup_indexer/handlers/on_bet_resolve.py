@@ -13,8 +13,14 @@ async def on_bet_resolve(
     try:
         game_id = resolve_bet.parameter.game_id
         game_info = resolve_bet.storage.game_info[game_id]
-        payout = int(game_info.payout)
         winner = game_info.winner
+        result = int(game_info.result)
+        bet = int(game_info.bet)
+
+        if game_id == 6:
+            payout = bet * result
+        else:
+            payout = game_info.payout
 
         bet = await models.Bet.get(
             game_id=game_id
