@@ -16,13 +16,14 @@ async def on_bet(
         operation = make_bet.data.hash
         fa2_address = make_bet.parameter.game_currency.fa2_address
         fa2_id = make_bet.parameter.game_currency.token_id
+        game_type = int(make_bet.parameter.game_id)
         amount = int(make_bet.parameter.bet)
         game_id = int(next(iter(make_bet.storage.game_info)))
-
         tag = getTagFromToken(fa2_address, fa2_id)
 
         await models.Bet.create(
             user_address=user_address,
+            game_type=game_type,
             operation=operation,
             tag=tag,
             amount=amount,

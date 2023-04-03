@@ -7,6 +7,7 @@ class Bet(Model):
     operation = fields.CharField(51, index=True)
     tag = fields.CharField(51, index=True)
     game_id = fields.IntField(index=True)
+    game_type = fields.IntField(index=True)
     amount = fields.DecimalField(38, 0)
     payout = fields.DecimalField(38, 0, null=True)
     winner = fields.BooleanField(null=True)
