@@ -4,6 +4,7 @@ from dipdup.context import HandlerContext
 from dipdup.models import Transaction
 from dipdup_indexer.types.gaming_hall.parameter.make_bet import MakeBetParameter
 from dipdup_indexer.types.gaming_hall.storage import GamingHallStorage
+from dipdup_indexer.util.util import getTagFromToken
 
 
 async def on_bet(
@@ -18,11 +19,12 @@ async def on_bet(
         amount = int(make_bet.parameter.bet)
         game_id = int(next(iter(make_bet.storage.game_info)))
 
+        tag = getTagFromToken(fa2_address, fa2_id)
+
         await models.Bet.create(
             user_address=user_address,
             operation=operation,
-            fa2_address=fa2_address,
-            fa2_id=fa2_id,
+            tag=tag,
             amount=amount,
             game_id=game_id
         )
