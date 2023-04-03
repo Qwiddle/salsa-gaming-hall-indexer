@@ -14,6 +14,7 @@ async def on_divest(
     try:
         user_address = divest_shares.data.sender_address
         operation = divest_shares.data.hash
+        timestamp = divest_shares.data.timestamp
         fa2_address = divest_shares.parameter.bankroll_currency.fa2_address
         fa2_id = divest_shares.parameter.bankroll_currency.token_id
         amount = int(divest_shares.parameter.amt)
@@ -22,6 +23,7 @@ async def on_divest(
 
         await models.Investment.create(
             user_address=user_address,
+            timestamp=timestamp,
             operation=operation,
             tag=tag,
             amount=amount,

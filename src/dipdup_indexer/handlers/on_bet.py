@@ -14,6 +14,7 @@ async def on_bet(
     try:
         user_address = make_bet.data.sender_address
         operation = make_bet.data.hash
+        timestamp = make_bet.data.timestamp
         fa2_address = make_bet.parameter.game_currency.fa2_address
         fa2_id = make_bet.parameter.game_currency.token_id
         game_type = int(make_bet.parameter.game_id)
@@ -23,8 +24,9 @@ async def on_bet(
 
         await models.Bet.create(
             user_address=user_address,
-            game_type=game_type,
+            timestamp=timestamp,
             operation=operation,
+            game_type=game_type,
             tag=tag,
             amount=amount,
             game_id=game_id

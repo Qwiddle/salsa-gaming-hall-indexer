@@ -14,6 +14,7 @@ async def on_invest(
     try:
         user_address = invest.data.sender_address
         operation = invest.data.hash
+        timestamp = invest.data.timestamp
         fa2_address = invest.parameter.bankroll_currency.fa2_address
         fa2_id = invest.parameter.bankroll_currency.token_id
         amount = int(invest.parameter.amt)
@@ -22,6 +23,7 @@ async def on_invest(
 
         await models.Investment.create(
             user_address=user_address,
+            timestamp=timestamp,
             operation=operation,
             tag=tag,
             amount=amount,
