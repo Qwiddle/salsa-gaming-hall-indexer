@@ -16,11 +16,15 @@ async def on_bet_resolve(
         winner = game_info.winner
         result = int(game_info.result)
         bet = int(game_info.bet)
+        max_payout = int(game_info.payout)
 
         if game_info.game_id == "6":
-            payout = bet * result
+            if result == 0:
+                payout = max_payout
+            else:
+                payout = bet * result
         else:
-            payout = game_info.payout
+            payout = max_payout
 
         bet = await models.Bet.get(
             game_id=game_id
