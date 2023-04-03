@@ -17,7 +17,7 @@ async def on_bet_resolve(
         result = int(game_info.result)
         bet = int(game_info.bet)
 
-        if game_id == 6:
+        if game_id == "6":
             payout = bet * result
         else:
             payout = game_info.payout
