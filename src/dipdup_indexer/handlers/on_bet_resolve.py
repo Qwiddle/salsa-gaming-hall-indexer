@@ -11,6 +11,9 @@ async def on_bet_resolve(
     resolve_bet: Transaction[ResolveBetParameter, GamingHallStorage],
 ) -> None:
     try:
+        # game_id parameter is a unique identifier tied to the game\
+        # game_info.game_id is the type of game played (dice, roulette, etc)
+
         game_id = resolve_bet.parameter.game_id
         game_info = resolve_bet.storage.game_info[game_id]
         winner = game_info.winner
