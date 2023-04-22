@@ -22,7 +22,9 @@ async def on_bet_resolve(
         max_payout = int(game_info.payout)
 
         if game_info.game_id == "6":
-            if result == 0:
+            if result == 0 and winner is True:
+                payout = 0
+            elif result == 0 and winner is False:
                 payout = max_payout
             else:
                 payout = bet * result
